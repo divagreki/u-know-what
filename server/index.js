@@ -22,57 +22,40 @@ app.get('/search', (req, res) => {
 	res.send("search!");
 });
 
-var AppID = '微信公众号APPID（测试、正式号都可以）';
-var AppSecret = 'appsecret';
-
-app.get('/wechat_login', function(req,res, next){
-	var router = 'get_wx_access_token';
-	var return_uri = 'http%3A%2F%2Fwww.yhorizon.com%2F'+router;  
-	var scope = 'snsapi_userinfo';
-	res.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid='+AppID+'&redirect_uri='+return_uri+'&response_type=code&scope='+scope+'&state=STATE#wechat_redirect');
-
-});
-app.get('/get_wx_access_token', function(req,res, next){
-
+var OAuth = require('wechat-oauth');
+var oauthApi = new OAuth('wxed3140d08c8341d5','1a4a7ed9206f4f26a6f7597c357c9651');
+app.get('/callback', function (req, res) {  
+	console.log('----weixin callback -----');
 	var code = req.query.code;
-	request.get(
-			{   
-				url:'https://api.weixin.qq.com/sns/oauth2/access_token?appid='+AppID+'&secret='+AppSecret+'&code='+code+'&grant_type=authorization_code',
-			},
-			function(error, response, body){
-				if(response.statusCode == 200){
+	console.log("code =" + code);
+	oauthApi.getAccessToken(code, function (err, result){
+		var accessToken = result.data.access_token;
+		var openid = result.data.openid; 
+		console.log('openid='+ openid);
+		oauthApi.getUser(openid, function (err, result1) {
+			console.log('use weixin api get user: ' + err);
+			console.log(result);
+			var oauth_user = result1;
+			console.log("userinfo" + JSON.stringify(oauth_user, null, '      '));
 
-					var data = JSON.parse(body);
-					var access_token = data.access_token;
-					var openid = data.openid;
-					request.get(
-							{
-								url:'https://api.weixin.qq.com/sns/userinfo?access_token='+access_token+'&openid='+openid+'&lang=zh_CN',
-							},
-							function(error, response, body){
-								if(response.statusCode == 200){
+			res.redirect('/');
+		});
+		console.log("blf write" + JSON.stringify(result.data, null, '   '));
+	});
+});
 
-									var userinfo = JSON.parse(body);
-									console.log('获取微信信息成功！');
+var callbackURL = 'http://localhost/callback';
 
-									res.send("\
-											<h1>"+userinfo.nickname+" 的个人信息</h1>\
-											<p><img src='"+userinfo.headimgurl+"' /></p>\
-											<p>"+userinfo.city+"，"+userinfo.province+"，"+userinfo.country+"</p>\
-											<p>openid: "+userinfo.openid+"</p>\
-											");
-								}else{
-									console.log(response.statusCode);
-								}
-							}
-						   );
-				}else{
-					console.log(response.statusCode);
-				}
-			}
-	);
+app.get('/oauth2', function(req, res) {
+	var url = oauthApi.getAuthorizeURL(callbackURL,'','snsapi_base');
+	console.log(url);   
+	res.redirect(url); 
+});
 
-	PORT = process.env.PORT || 5000
-		app.listen(PORT);
 
-	//localhost:5000
+
+
+PORT = process.env.PORT || 5000
+app.listen(PORT);
+
+//localhost:5000

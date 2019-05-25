@@ -44,7 +44,7 @@ app.get('/callback', function (req, res) {
 	});
 });
 
-var callbackURL = 'http://localhost/callback';
+var callbackURL = 'https://u-know-what.herokuapp.com/callback';
 
 app.get('/oauth2', function(req, res) {
 	var url = oauthApi.getAuthorizeURL(callbackURL,'','snsapi_base');

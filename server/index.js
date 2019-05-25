@@ -53,6 +53,11 @@ app.get('/oauth2', function(req, res) {
 });
 
 
+app.post('/gettoken', (req, res) => {
+	console.log("home post.");
+	res.send("Hello post!");
+})
+
 
 
 PORT = process.env.PORT || 5000

@@ -49,9 +49,14 @@ var callbackURL = 'https://u-know-what.herokuapp.com/callback';
 app.get('/oauth2', function(req, res) {
 	var url = oauthApi.getAuthorizeURL(callbackURL,'','snsapi_base');
 	console.log(url);   
-	res.redirect(url); 
+//	res.redirect(url); 
 });
 
+
+app.post('/gettoken', (req, res) => {
+	console.log("home post.");
+	res.send("Hello post!");
+})
 
 
 

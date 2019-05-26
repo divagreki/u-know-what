@@ -26,7 +26,7 @@ app.get('/search', (req, res) => {
 
 
 var OAuth = require('wechat-oauth');
-var oauthApi = new OAuth('wxed3140d08c8341d5','1a4a7ed9206f4f26a6f7597c357c9651');
+var oauthApi = new OAuth('xxx','xx');
 var red_url = 'https://u-know-what.herokuapp.com/callback';
 
 app.get('/wechat', function(req, res) {
@@ -68,8 +68,8 @@ app.get('/gettoken', (req, res) => {
 
 // ==========================GITHUB================================
 var githubConfig = {
-    client_ID: 'db99d9c8c96b7ad24be8',
-    client_Secret: '13524b5210100cdfa5da73d8bd26a0f5ce6c2151',
+    client_ID: 'xxxx',
+    client_Secret: 'xxxx',
     access_token_url: 'https://github.com/login/oauth/access_token',
     user_info_url: 'https://api.github.com/user?',
     redirect_uri: 'http://manage.hgdqdev.cn/#/login',

@@ -87,12 +87,12 @@ app.get('/github', function(req, res) {
     // 转发到授权服务器
     res.redirect(path)
 });
-
+/**
 app.get('/github_callback', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
     res.send('github code =' + code);
-    /**
+    
     const params = {
         client_id: githubConfig.client_id,
         client_secret: githubConfig.client_Secret,
@@ -133,7 +133,52 @@ app.get('/github_callback', function(req, res) {
             })
 
     })
-    **/
+    
+});
+
+**/
+
+
+app.get("/github_callback", function(req, res){
+    var code = req.query.code;
+    var state = req.query.state;
+    var headers = req.headers;
+    var path = "/login/OAuth/access_token";
+    headers.host = 'github.com';
+
+
+    path += '?client_id=' + githubConfig.client_ID;
+    path += '&client_secret='+ githubConfig.client_Secret;
+    path += '&code='+ code;
+    console.log(path);
+    var opts = {
+        hostname:'github.com',
+        port:'443',
+        path:path,
+        headers:headers,
+        method:'POST'
+    };
+
+    var req = https.request(opts, function(res){
+        res.setEncoding('utf8');
+         console.log(opts);
+    
+        res.on('data', function(data){
+            var args = data.split('&');
+            var tokenInfo = args[0].split("=");
+            var token = tokenInfo[1];
+            console.log(data);
+          
+            var url = "https://api.github.com/user?access_token="+token+"&scope=user";
+            https.get(url, function(res){
+                res.on('data', function(userInfo){
+                   console.log(userInfo);
+                   res.send('userInfo: '+ userInfo)
+                });
+            });
+          
+        })
+    });
 });
 
 

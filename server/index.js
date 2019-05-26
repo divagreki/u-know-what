@@ -112,6 +112,7 @@ app.get('/github_callback', function(req, res) {
         return access_token
     }).then(token => {
         const url = ' https://api.github.com/user?access_token=' + token;
+        res.send('token = '+token);
         fetch(url)
             .then(info => {
                 return info.json();

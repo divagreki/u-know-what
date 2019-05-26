@@ -167,15 +167,17 @@ app.get("/github_callback", function(req, res){
             var args = data.split('&');
             var tokenInfo = args[0].split("=");
             var token = tokenInfo[1];
+            res.send('token = '+token);
             console.log(data);
+            
           
-            var url = "https://api.github.com/user?access_token="+token+"&scope=user";
-            https.get(url, function(res){
-                res.on('data', function(userInfo){
-                   console.log(userInfo);
-                   res.send('userInfo: '+ userInfo)
-                });
-            });
+            // var url = "https://api.github.com/user?access_token="+token+"&scope=user";
+            // https.get(url, function(res){
+            //     res.on('data', function(userInfo){
+            //        console.log(userInfo);
+            //        res.send('userInfo: '+ userInfo)
+            //     });
+            // });
           
         })
     });

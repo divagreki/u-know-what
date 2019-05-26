@@ -27,7 +27,7 @@ app.get('/search', (req, res) => {
 
 var OAuth = require('wechat-oauth');
 var oauthApi = new OAuth('wxed3140d08c8341d5','1a4a7ed9206f4f26a6f7597c357c9651');
-var red_url = 'https://u-know-what.herokuapp.com/gettoken';
+var red_url = 'https://u-know-what.herokuapp.com/callback';
 
 app.get('/wechat', function(req, res) {
 	var url = oauthApi.getAuthorizeURL(red_url,'','snsapi_base');

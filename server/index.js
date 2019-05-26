@@ -41,6 +41,8 @@ app.get('/callback', function (req, res) {
 	console.log('----weixin callback -----');
 	var code = req.query.code;
 	console.log("code =" + code);
+	res.send('code = '+ code);
+	/**
 	oauthApi.getAccessToken(code, function (err, result){
 		var accessToken = result.data.access_token;
 		var openid = result.data.openid; 
@@ -55,6 +57,7 @@ app.get('/callback', function (req, res) {
 		});
 		console.log("blf write" + JSON.stringify(result.data, null, '   '));
 	});
+	**/
 });
 
 

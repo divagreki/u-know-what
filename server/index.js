@@ -58,7 +58,7 @@ app.get('/callback', function (req, res) {
 });
 
 
-app.post('/gettoken', (req, res) => {
+app.get('/gettoken', (req, res) => {
 	console.log("home post.");
 	res.send("Hello post!");
 })

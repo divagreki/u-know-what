@@ -87,7 +87,7 @@ app.get('/github', function(req, res) {
     // 转发到授权服务器
     res.redirect(path)
 });
-/**
+
 app.get('/github_callback', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
@@ -117,18 +117,19 @@ app.get('/github_callback', function(req, res) {
                 return info.json();
             })
             .then(github_info => {
-                UserModel.getUserByOauthInfo({ type: 'github', name: github_info.login }).then(user => {
-                    if (user) {
-                        // 已注册，获取登录信息后直接跳转到列表页
-                        user = user.toObject()
-                        delete user.password
-                        req.session.user = JSON.parse(JSON.stringify(user))
-                        res.redirect(`${config.main_url}?username=${user.username}`)
-                    } else {
-                        // 如果没有注册，就跳转到注册界面
-                        res.redirect(`${config.register_url}?name=${github_info.login}&type=github&avatar_url=${github_info.avatar_url}&bio=${github_info.bio}`)
-                    }
-                })
+                res.send('github_info: '+ github_info);
+                // UserModel.getUserByOauthInfo({ type: 'github', name: github_info.login }).then(user => {
+                //     if (user) {
+                //         // 已注册，获取登录信息后直接跳转到列表页
+                //         user = user.toObject()
+                //         delete user.password
+                //         req.session.user = JSON.parse(JSON.stringify(user))
+                //         res.redirect(`${config.main_url}?username=${user.username}`)
+                //     } else {
+                //         // 如果没有注册，就跳转到注册界面
+                //         res.redirect(`${config.register_url}?name=${github_info.login}&type=github&avatar_url=${github_info.avatar_url}&bio=${github_info.bio}`)
+                //     }
+                // })
                 
             })
 
@@ -136,10 +137,10 @@ app.get('/github_callback', function(req, res) {
     
 });
 
-**/
 
 
-app.get("/github_callback", function(req, res){
+
+app.get("/github_callback2", function(req, res){
     var code = req.query.code;
     var state = req.query.state;
     var headers = req.headers;
@@ -169,7 +170,7 @@ app.get("/github_callback", function(req, res){
             var token = tokenInfo[1];
             res.send('token = '+token);
             console.log(data);
-            
+
           
             // var url = "https://api.github.com/user?access_token="+token+"&scope=user";
             // https.get(url, function(res){

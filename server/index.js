@@ -64,27 +64,38 @@ app.get('/callback', function (req, res) {
 app.get('/gettoken', (req, res) => {
 	console.log("home post.");
 	res.send("Hello post!");
-})
+});
 
 // ==========================GITHUB================================
-/**
-app.get('/login', checkNotLogin, async (req, res, next) => {
+var githubConfig = {
+    client_ID: 'db99d9c8c96b7ad24be8',
+    client_Secret: '13524b5210100cdfa5da73d8bd26a0f5ce6c2151',
+    access_token_url: 'https://github.com/login/oauth/access_token',
+    user_info_url: 'https://api.github.com/user?',
+    redirect_uri: 'http://manage.hgdqdev.cn/#/login',
+    scope: 'user'
+}
+
+
+app.all('/github', function(req, res) {
     const dataStr = (new Date()).valueOf()
     //  重定向到认证接口,并配置参数
     let path = "https://github.com/login/oauth/authorize"
-    path += '?client_id=' + config.client_id
-    path += '&scope=' + config.scope
+    path += '?client_id=' + githubConfig.client_ID
+    path += '&scope=' + githubConfig.scope
     path += '&state=' + dataStr
     // 转发到授权服务器
     res.redirect(path)
-})
+});
 
-app.get('/oauth/callback', checkNotLogin, (req, res, next) => {
+app.all('github_callback', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
+    res.send('github code =' + code);
+    /**
     const params = {
-        client_id: config.client_id,
-        client_secret: config.client_secret,
+        client_id: githubConfig.client_id,
+        client_secret: githubConfig.client_Secret,
         code: code
     }
     fetch(path, {
@@ -122,9 +133,9 @@ app.get('/oauth/callback', checkNotLogin, (req, res, next) => {
             })
 
     })
-})
+    **/
+});
 
-**/
 
 PORT = process.env.PORT || 5000
 app.listen(PORT);

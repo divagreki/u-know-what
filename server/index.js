@@ -77,7 +77,7 @@ var githubConfig = {
 }
 
 
-app.all('/github', function(req, res) {
+app.get('/github', function(req, res) {
     const dataStr = (new Date()).valueOf()
     //  重定向到认证接口,并配置参数
     let path = "https://github.com/login/oauth/authorize"
@@ -88,7 +88,7 @@ app.all('/github', function(req, res) {
     res.redirect(path)
 });
 
-app.all('github_callback', function(req, res) {
+app.get('github_callback', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
     res.send('github code =' + code);

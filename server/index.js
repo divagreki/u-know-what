@@ -3,13 +3,9 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const app = express();
 
-
-const GITHUB_CLIENT_ID = "c1c65b3d4eef969f54fd";
-const GITHUB_CLIENT_SECRET = "9d58c626fbf6e5dde59b2f35a82495570895eaeb"; 
-
 passport.use(new GitHubStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_CLIENT_SECRET,
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, cb) {

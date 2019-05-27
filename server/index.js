@@ -59,7 +59,7 @@ app.get('/search', (req, res) => {
 
 //==========================WECHAT================================
 
-
+/**
 var OAuth = require('wechat-oauth');
 var oauthApi = new OAuth('xxx','xx');
 var red_url = 'https://u-know-what.herokuapp.com/callback';
@@ -77,7 +77,7 @@ app.get('/callback', function (req, res) {
 	var code = req.query.code;
 	console.log("code =" + code);
 	res.send('code = '+ code);
-	/**
+	
 	oauthApi.getAccessToken(code, function (err, result){
 		var accessToken = result.data.access_token;
 		var openid = result.data.openid; 
@@ -92,7 +92,7 @@ app.get('/callback', function (req, res) {
 		});
 		console.log("blf write" + JSON.stringify(result.data, null, '   '));
 	});
-	**/
+	
 });
 
 
@@ -100,6 +100,7 @@ app.get('/gettoken', (req, res) => {
 	console.log("home post.");
 	res.send("Hello post!");
 });
+**/
 
 // ==========================GITHUB================================
 var githubConfig = {

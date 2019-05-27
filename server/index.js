@@ -26,6 +26,14 @@ app.get('/auth/github/callback',
     res.redirect('/success');
  });
 
+app.get('/error', (req, res) => {
+	res.send("error");
+});
+
+app.get('/success', (req, res) => {
+	res.send("success");
+});
+
 app.get('/', (req, res) => {
 	console.log("home get.");
 	res.send("Hello! get!");

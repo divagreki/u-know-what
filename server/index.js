@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const app = express();
+/**
 
 const GITHUB_CLIENT_ID = "c1c65b3d4eef969f54fd";
 const GITHUB_CLIENT_SECRET = "9d58c626fbf6e5dde59b2f35a82495570895eaeb"; 
@@ -25,6 +26,7 @@ app.get('/auth/github/callback',
   function(req, res) {
     res.redirect('/success');
  });
+ **/
 
 app.get('/error', (req, res) => {
 	res.send("error");
@@ -101,8 +103,8 @@ app.get('/gettoken', (req, res) => {
 
 // ==========================GITHUB================================
 var githubConfig = {
-    client_ID: 'xxxx',
-    client_Secret: 'xxxx',
+    client_ID: 'db99d9c8c96b7ad24be8',
+    client_Secret: '13524b5210100cdfa5da73d8bd26a0f5ce6c2151',
     access_token_url: 'https://github.com/login/oauth/access_token',
     user_info_url: 'https://api.github.com/user?',
     redirect_uri: 'http://manage.hgdqdev.cn/#/login',

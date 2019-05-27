@@ -11,6 +11,7 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
       console.log(profile);
+      console.log(accessToken);
       return cb(null, profile);
   }
 ));
@@ -29,11 +30,11 @@ app.get('/auth/github/callback',
 
 
 app.get('/error', (req, res) => {
-	res.send("error");
+	res.render("error");
 });
 
 app.get('/success', (req, res) => {
-	res.send("success");
+	res.render("success");
 });
 
 app.get('/', (req, res) => {

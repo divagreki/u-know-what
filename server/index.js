@@ -1,8 +1,8 @@
 const express = require('express');
-//const passport = require('passport');
-//const GitHubStrategy = require('passport-github').Strategy;
+const passport = require('passport');
+const GitHubStrategy = require('passport-github').Strategy;
 const app = express();
-/**
+
 
 const GITHUB_CLIENT_ID = "c1c65b3d4eef969f54fd";
 const GITHUB_CLIENT_SECRET = "9d58c626fbf6e5dde59b2f35a82495570895eaeb"; 
@@ -26,7 +26,7 @@ app.get('/auth/github/callback',
   function(req, res) {
     res.redirect('/success');
  });
- **/
+
 
 app.get('/error', (req, res) => {
 	res.send("error");
@@ -101,7 +101,7 @@ app.get('/gettoken', (req, res) => {
 	res.send("Hello post!");
 });
 **/
-
+/**
 // ==========================GITHUB================================
 var githubConfig = {
     client_ID: 'db99d9c8c96b7ad24be8',
@@ -222,7 +222,7 @@ app.get("/github_callback2", function(req, res){
     });
 });
 
-
+**/
 PORT = process.env.PORT || 5000
 app.listen(PORT);
 

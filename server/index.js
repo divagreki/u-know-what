@@ -124,6 +124,7 @@ app.get('/github', function(req, res) {
 app.get('/github_callback', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
+    res.send('code = '+ code);
    
     
     const params = {

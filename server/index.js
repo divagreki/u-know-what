@@ -1,5 +1,30 @@
 const express = require('express');
+const passport = require('passport');
+const GitHubStrategy = require('passport-github').Strategy;
 const app = express();
+
+const GITHUB_CLIENT_ID = "c1c65b3d4eef969f54fd";
+const GITHUB_CLIENT_SECRET = "9d58c626fbf6e5dde59b2f35a82495570895eaeb"; 
+
+passport.use(new GitHubStrategy({
+    clientID: GITHUB_CLIENT_ID,
+    clientSecret: GITHUB_CLIENT_SECRET,
+    callbackURL: "/auth/github/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+      console.log(profile);
+      return cb(null, profile);
+  }
+));
+
+app.get('/auth/github',
+  passport.authenticate('github'));
+
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/error' }),
+  function(req, res) {
+    res.redirect('/success');
+ });
 
 app.get('/', (req, res) => {
 	console.log("home get.");

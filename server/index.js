@@ -129,8 +129,6 @@ var githubConfig = {
     client_ID: 'c1c65b3d4eef969f54fd',
     client_Secret: 'e793acf5258b552bc3e604974ed0880d1fd498ea',
     access_token_url: 'https://github.com/login/oauth/access_token',
-    user_info_url: 'https://api.github.com/user?',
-    redirect_uri: 'https://u-know-what.herokuapp.com/github_callback',
     scope: 'user'
 }
 
@@ -140,13 +138,10 @@ app.get('/github', function(req, res) {
     let path = "https://github.com/login/oauth/authorize"
     path += '?client_id=' + githubConfig.client_ID
     path += '&scope=' + githubConfig.scope 
-    path += '&redirect_uri=' + githubConfig.redirect_uri
     // 转发到授权服务器
     res.redirect(path)
 });
 
-var request = require('request');
-var needle = require('needle');
 
 app.get('/github_callback', function(req, res) {
     var code = req.query.code;
@@ -163,15 +158,12 @@ app.get('/github_callback', function(req, res) {
 // 	}, function (error, response, body){
 // 	    console.log(response);
 // 	});
-// 	needle.post('https://baidu.com', myJSONObject, 
-// 	    function(err, resp, body){
-// 		console.log(body);
-// 	});
-
-	needle.get('https://www.baidu.com/', function(error, response) {
-	  if (!error && response.statusCode == 200)
-	    console.log(response.body);
-	});
+var request = require('request');
+request('http://www.google.com', function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  console.log('body:', body); // Print the HTML for the Google homepage.
+});
 });
 
 

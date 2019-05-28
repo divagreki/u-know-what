@@ -17,15 +17,15 @@ passport.use(new GitHubStrategy({
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "https://u-know-what.herokuapp.com/auth/github/callback"
   },
-//   function(accessToken, refreshToken, profile, cb) {
-//       console.log(profile);
-//       console.log(accessToken);
-//       return cb(null, profile);
-//   }
-     function(accessToken, refreshToken, profile, cb) {
-    	 User.findOrCreate({ githubId: profile.id }, function (err, user) {
-     	 return cb(err, user);
-    });
+   function(accessToken, refreshToken, profile, cb) {
+       console.log(profile);
+       console.log(accessToken);
+       return cb(null, profile);
+   }
+//     function(accessToken, refreshToken, profile, cb) {
+//    	 User.findOrCreate({ githubId: profile.id }, function (err, user) {
+//     	 return cb(err, user);
+//				});
   }
 ));
 

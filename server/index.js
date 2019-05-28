@@ -135,10 +135,17 @@ app.get('/github_callback', function(req, res) {
 	path += '?client_id=' + githubConfig.client_ID
 	path += '&client_secret=' + githubConfig.client_Secret
 	path += '&code=' + code
+	path += '&redirect_uri=' + 'https://u-know-what.herokuapp.com/github_callback2'
 	res.redirect(path)
 });
 
 app.get('/github_callback2', function(req, res) {
+	const access_token = req.query.access_token;
+	res.send('token = '+token);
+});
+
+/**
+app.get('/github_callback7', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
 
@@ -188,7 +195,7 @@ app.get('/github_callback2', function(req, res) {
 });
 
 
-/**
+
 
 app.get("/github_callback2", function(req, res){
     var code = req.query.code;

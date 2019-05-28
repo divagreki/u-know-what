@@ -148,6 +148,7 @@ app.get('/github', function(req, res) {
 });
 
 var request = require('request');
+var needle = require('needle');
 
 app.get('/github_callback', function(req, res) {
     var code = req.query.code;
@@ -164,9 +165,14 @@ app.get('/github_callback', function(req, res) {
 // 	}, function (error, response, body){
 // 	    console.log(response);
 // 	});
-	needle.post('https://baidu.com', myJSONObject, 
-	    function(err, resp, body){
-		console.log(body);
+// 	needle.post('https://baidu.com', myJSONObject, 
+// 	    function(err, resp, body){
+// 		console.log(body);
+// 	});
+
+	needle.get('https://www.baidu.com/', function(error, response) {
+	  if (!error && response.statusCode == 200)
+	    console.log(response.body);
 	});
 });
 

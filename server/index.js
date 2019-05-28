@@ -122,12 +122,23 @@ app.get('/github', function(req, res) {
     //  重定向到认证接口,并配置参数
     let path = "https://github.com/login/oauth/authorize"
     path += '?client_id=' + githubConfig.client_ID
-    path += '&scope=' + githubConfig.scope
+    path += '&scope=' + githubConfig.scope 
+    path += '&redirect_uri=' + githubConfig.redirect_uri
     // 转发到授权服务器
     res.redirect(path)
 });
 
 app.get('/github_callback', function(req, res) {
+	const code = req.query.code;
+	console.log('code = '+code);
+	let path = 'https://github.com/login/oauth/access_token'
+	path += '?client_id=' + githubConfig.client_ID
+	path += '&client_secret=' + githubConfig.client_Secret
+	path += '&code=' + code
+	res.redirect(path)
+});
+
+app.get('/github_callback2', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
 

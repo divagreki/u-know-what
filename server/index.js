@@ -15,12 +15,12 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "/auth/github/callback"
+    callbackURL: "https://u-know-what.herokuapp.com/auth/github/callback"
   },
    function(accessToken, refreshToken, profile, cb) {
        console.log(profile);
        console.log(accessToken);
-       return cb(null, profile);
+       //return cb(null, profile);
    }
 //     function(accessToken, refreshToken, profile, cb) {
 //    	 User.findOrCreate({ githubId: profile.id }, function (err, user) {
@@ -30,15 +30,13 @@ passport.use(new GitHubStrategy({
 ));
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({
-    secret: 'top secret key',
-    resave: false,
-    saveUninitialized: true
-}));
+
+app.use(express.static("public"));
+app.use(session({ secret: "cats" }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.get('/auth/github',
   passport.authenticate('github', { scope: ['user:email'] }),
   function(req, res){
@@ -48,7 +46,7 @@ app.get('/auth/github',
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/error' }),
   function(req, res) {
-    res.redirect('/success');
+    res.redirect('/');
  });
 
 

@@ -128,24 +128,8 @@ app.get('/github', function(req, res) {
     res.redirect(path)
 });
 
-app.get('/github_callback', function(req, res) {
-	const code = req.query.code;
-	console.log('code = '+code);
-	let path = 'https://github.com/login/oauth/access_token'
-	path += '?client_id=' + githubConfig.client_ID
-	path += '&client_secret=' + githubConfig.client_Secret
-	path += '&code=' + code
-	path += '&redirect_uri=' + 'https://u-know-what.herokuapp.com/github_callback2'
-	res.redirect(path)
-});
-
-app.get('/github_callback2', function(req, res) {
-	const access_token = req.query.access_token;
-	res.send('token = '+token);
-});
-
 /**
-app.get('/github_callback7', function(req, res) {
+app.get('/github_callback', function(req, res) {
     const code = req.query.code;
     let path = 'https://github.com/login/oauth/access_token';
 
@@ -194,16 +178,14 @@ app.get('/github_callback7', function(req, res) {
     
 });
 
+**/
 
-
-
-app.get("/github_callback2", function(req, res){
+app.get("/github_callback", function(req, res){
     var code = req.query.code;
     var state = req.query.state;
     var headers = req.headers;
-    var path = "/login/OAuth/access_token";
+    var path = "/login/oauth/access_token";
     headers.host = 'github.com';
-
 
     path += '?client_id=' + githubConfig.client_ID;
     path += '&client_secret='+ githubConfig.client_Secret;
@@ -225,10 +207,9 @@ app.get("/github_callback2", function(req, res){
             var args = data.split('&');
             var tokenInfo = args[0].split("=");
             var token = tokenInfo[1];
-            res.send('token = '+token);
+            res.send('data = '+ data +' token = '+token);
             console.log(data);
 
-          
             // var url = "https://api.github.com/user?access_token="+token+"&scope=user";
             // https.get(url, function(res){
             //     res.on('data', function(userInfo){
@@ -241,7 +222,7 @@ app.get("/github_callback2", function(req, res){
     });
 });
 
-**/
+
 PORT = process.env.PORT || 5000
 app.listen(PORT);
 

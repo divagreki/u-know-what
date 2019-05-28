@@ -156,15 +156,18 @@ app.get('/github_callback', function(req, res) {
 	"client_secret" : githubConfig.client_Secret,
 	"code" : code
     };
-	request({
-	    url: "https://github.com/login/oauth/access_token",
-	    method: "POST",
-	    json: true,   // <--Very important!!!
-	    body: myJSONObject
-	}, function (error, response, body){
-	    console.log(response);
+// 	request({
+// 	    url: "https://github.com/login/oauth/access_token",
+// 	    method: "POST",
+// 	    json: true,   // <--Very important!!!
+// 	    body: myJSONObject
+// 	}, function (error, response, body){
+// 	    console.log(response);
+// 	});
+	needle.post('https://github.com/login/oauth/access_token', myJSONObject, 
+	    function(err, resp, body){
+		console.log(body);
 	});
-	
 });
 
 

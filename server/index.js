@@ -15,7 +15,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "https://u-know-what.herokuapp.com/auth/github/callback"
+    callbackURL: "/auth/github/callback"
   },
    function(accessToken, refreshToken, profile, cb) {
        console.log(profile);
@@ -26,7 +26,7 @@ passport.use(new GitHubStrategy({
 //    	 User.findOrCreate({ githubId: profile.id }, function (err, user) {
 //     	 return cb(err, user);
 //				});
-  }
+ // }
 ));
 
 const app = express();

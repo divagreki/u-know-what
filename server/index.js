@@ -126,8 +126,8 @@ app.get('/gettoken', (req, res) => {
 
 // ==========================GITHUB================================
 var githubConfig = {
-    client_ID: 'c1c65b3d4eef969f54fd',
-    client_Secret: 'e793acf5258b552bc3e604974ed0880d1fd498ea',
+    client_ID: 'db99d9c8c96b7ad24be8',
+    client_Secret: '13524b5210100cdfa5da73d8bd26a0f5ce6c2151',
     access_token_url: 'https://github.com/login/oauth/access_token',
     scope: 'user'
 }

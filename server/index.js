@@ -150,7 +150,7 @@ app.get('/github_callback', function(req, res) {
 	'client_secret' : githubConfig.client_Secret,
 	'code' : code
     };
-res.send('code = '+code);
+
 // 	request({
 // 	    url: "https://github.com/login/oauth/access_token",
 // 	    method: "POST",

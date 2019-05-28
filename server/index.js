@@ -152,9 +152,9 @@ var request = require('request');
 app.get('/github_callback', function(req, res) {
     var code = req.query.code;
     var myJSONObject = {
-	"client_id" : githubConfig.client_ID, 
-	"client_secret" : githubConfig.client_Secret,
-	"code" : code
+	'client_id' : githubConfig.client_ID, 
+	'client_secret' : githubConfig.client_Secret,
+	'code' : code
     };
 // 	request({
 // 	    url: "https://github.com/login/oauth/access_token",
@@ -164,7 +164,7 @@ app.get('/github_callback', function(req, res) {
 // 	}, function (error, response, body){
 // 	    console.log(response);
 // 	});
-	needle.post('https://github.com/login/oauth/access_token', myJSONObject, 
+	needle.post('https://baidu.com', myJSONObject, 
 	    function(err, resp, body){
 		console.log(body);
 	});

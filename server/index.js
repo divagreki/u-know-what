@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
-
+var request = require('request');
+var needle = require('needle');
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -79,11 +80,17 @@ app.get('/search', (req, res) => {
 	res.send("search!");
 });
 app.get('/ppp', (req, res) => {
-	var request = require('request');
-request('http://www.google.com', function (error, response, body) {
+request('https://www.baidu.com', function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.
+});
+});
+
+app.get('/qqq', (req, res) => {
+needle.get('http://www.baidu.com', function(error, response) {
+  if (!error && response.statusCode == 200)
+    console.log(response.body);
 });
 });
 

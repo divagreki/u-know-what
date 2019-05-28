@@ -6,8 +6,7 @@ const app = express();
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "/auth/github/callback",
-    proxy: true
+    callbackURL: "https://u-know-what.herokuapp.com/auth/github/callback"
   },
 //   function(accessToken, refreshToken, profile, cb) {
 //       console.log(profile);

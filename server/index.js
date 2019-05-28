@@ -109,8 +109,8 @@ app.get('/gettoken', (req, res) => {
 
 // ==========================GITHUB================================
 var githubConfig = {
-    client_ID: 'db99d9c8c96b7ad24be8',
-    client_Secret: '13524b5210100cdfa5da73d8bd26a0f5ce6c2151',
+    client_ID: 'c1c65b3d4eef969f54fd',
+    client_Secret: 'e793acf5258b552bc3e604974ed0880d1fd498ea',
     access_token_url: 'https://github.com/login/oauth/access_token',
     user_info_url: 'https://api.github.com/user?',
     redirect_uri: 'https://u-know-what.herokuapp.com/github_callback',
@@ -119,12 +119,10 @@ var githubConfig = {
 
 
 app.get('/github', function(req, res) {
-    const dataStr = (new Date()).valueOf()
     //  重定向到认证接口,并配置参数
     let path = "https://github.com/login/oauth/authorize"
     path += '?client_id=' + githubConfig.client_ID
     path += '&scope=' + githubConfig.scope
-    path += '&state=' + dataStr
     // 转发到授权服务器
     res.redirect(path)
 });

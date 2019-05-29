@@ -19,9 +19,9 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(
 	new GoogleStrategy({
-			clientID: process.env.GOOGLE_CLIENT_ID,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-			callbackURL: '/auth/google/callback',
+			clientID: process.env.GITHUB_CLIENT_ID,
+			clientSecret: process.env.GITHUB_CLIENT_SECRET,
+			callbackURL: '/auth/github/callback',
 			proxy: true
 		}, 
 		function(accessToken, refreshToken, profile, cb) {
@@ -33,13 +33,13 @@ passport.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/auth/google',
-  passport.authenticate('google', { scope:
-  	[ 'email', 'profile' ] }
+app.get('/auth/github',
+  passport.authenticate('github', { scope:
+  	[ 'email' ] }
 ));
 
-app.get( '/auth/google/callback',
-	passport.authenticate( 'google', {
+app.get( '/auth/github/callback',
+	passport.authenticate( 'github', {
 		successRedirect: '/auth/google/success',
 		failureRedirect: '/auth/google/failure'
 }));

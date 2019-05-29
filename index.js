@@ -49,14 +49,6 @@ app.get(
 	}
 );
 
-app.get('/auth/google/failure', (req, res) => {
-	res.render("error");
-});
-
-app.get('/auth/google/success', (req, res) => {
-	res.render("success");
-});
-
 app.get('/', (req, res) => {
 	console.log("home get.");
 	res.send("Hello! get!");

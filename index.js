@@ -7,7 +7,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 var request = require('request');
 var needle = require('needle');
 
-const app = express();
+
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -18,31 +18,37 @@ passport.deserializeUser(function(user, done) {
 });
 
 passport.use(
-	new GoogleStrategy({
-			clientID: process.env.GITHUB_CLIENT_ID,
-			clientSecret: process.env.GITHUB_CLIENT_SECRET,
-			callbackURL: '/auth/github/callback',
+	new GoogleStrategy(
+		{
+			clientID: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+			callbackURL: '/auth/google/callback',
 			proxy: true
 		}, 
-		function(accessToken, refreshToken, profile, cb) {
-                       console.log(profile);
-	       }
-));
+		(accessToken, refreshToken, profile, done) =>	{
+			console.log(profile);
+		}
+	)
+);
 
-
+const app = express();
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/auth/github',
-  passport.authenticate('github', { scope:
-  	[ 'email' ] }
-));
+app.get(
+	'/auth/google', 
+	passport.authenticate('google', {
+		scope: ['profile','email']
+	})
+);
 
-app.get( '/auth/github/callback',
-	passport.authenticate( 'github', {
-		successRedirect: '/auth/google/success',
-		failureRedirect: '/auth/google/failure'
-}));
+app.get(
+	'/auth/google/callback', 
+	passport.authenticate('google'),
+	(req, res) => {
+		res.redirect('/surveys');
+	}
+);
 
 app.get('/auth/google/failure', (req, res) => {
 	res.render("error");

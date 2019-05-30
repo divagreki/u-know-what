@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
 	console.log("home get.");
 	res.send("Hello! get!");
 });
-
+/*
 //====================================================== GITHUB ====================================================================
 var GitHubStrategy = require('passport-github').Strategy;
 
@@ -85,7 +85,7 @@ app.get('/error', (req, res) => {
 	console.log("error.");
 	res.send("Error!");
 });
-
+*/
 PORT = process.env.PORT || 5000
 app.listen(PORT);
 

@@ -63,9 +63,10 @@ passport.use(new GitHubStrategy({
     callbackURL: "https://u-know-what.herokuapp.com/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
+//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+	console.log("success.");
   }
 ))
 
@@ -73,11 +74,16 @@ app.get('/auth/github',
   passport.authenticate('github'));
 
 app.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', { failureRedirect: '/error' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
   });
+
+app.get('/error', (req, res) => {
+	console.log("error.");
+	res.send("Error!");
+});
 
 PORT = process.env.PORT || 5000
 app.listen(PORT);

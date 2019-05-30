@@ -13,7 +13,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
     done(null, user);
 });
-
+/*
 passport.use(
 	new GoogleStrategy(
 		{
@@ -26,12 +26,36 @@ passport.use(
 		}
 	)
 );
+*/
+passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: "https://u-know-what.herokuapp.com/auth/github/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ githubId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+	console.log("success.");
+  }
+))
+
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/auth/github',
+  passport.authenticate('github'));
+
+app.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/error' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+ });
+/*
 app.get(
 	'/auth/google', 
 	passport.authenticate('google', {
@@ -46,7 +70,7 @@ app.get(
 		res.redirect('/auth/google/success');
 	}
 );
-
+*/
 app.get('/', (req, res) => {
 	console.log("home get.");
 	res.send("Hello! get!");

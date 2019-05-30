@@ -31,6 +31,7 @@ passport.use(
 );
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
